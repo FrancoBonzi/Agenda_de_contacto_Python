@@ -19,6 +19,20 @@ def emailValido(email):
     return True
 
 
+def ContactoExiste(telefono,email):
+    
+    if os.path.exists("AgendaDeContacto.txt"):
+        return False
+    
+    with open("AgendaDeContacto.txt","r",encoding="utf-8") as archivo:
+        for linea in archivo:
+            datos = linea.strip().split("|")
+            if datos[2] == telefono or datos[3] == email:
+                return True
+            
+    return False        
+
+
 def AltaDeContacto():
 
     while True:
