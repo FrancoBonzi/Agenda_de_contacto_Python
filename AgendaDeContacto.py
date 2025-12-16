@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 def limpiarPantalla():
     os.system("cls" if os.name == "nt" else "clear")
@@ -19,18 +19,19 @@ def emailValido(email):
     return True
 
 
-def ContactoExiste(telefono,email):
-    
-    if os.path.exists("AgendaDeContacto.txt"):
+def ContactoExiste(telefono, email):
+
+    if not os.path.exists("AgendaDeContacto.txt"):
         return False
-    
-    with open("AgendaDeContacto.txt","r",encoding="utf-8") as archivo:
+
+    with open("AgendaDeContacto.txt", "r", encoding="utf-8") as archivo:
         for linea in archivo:
             datos = linea.strip().split("|")
             if datos[2] == telefono or datos[3] == email:
                 return True
-            
-    return False        
+
+    return False
+    
 
 
 def AltaDeContacto():
@@ -177,7 +178,9 @@ def EliminarContacto():
 
 def Salir():
 
+    limpiarPantalla()
     print("SALIENDO DEL PROGRAMA...")
+    sys.exit()
 
 
 def MenuPrincipal():
