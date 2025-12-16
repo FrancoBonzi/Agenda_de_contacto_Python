@@ -62,7 +62,7 @@ def AltaDeContacto():
 
         respuesta = input("¿Desea agendar otro contacto? (s/n): ").lower()
 
-        while respuesta != 's' or respuesta != 'n':
+        while respuesta != 's' and respuesta != 'n':
             input("Error: Debes ingresar 's' o 'n'. \n")    
             respuesta = input("¿Desea agendar otro contacto? (s/n): ").lower()
 
@@ -106,7 +106,7 @@ def BuscarContactoPorTelefono():
 
         respuesta = input("¿Desea buscar otro contacto por el teléfono? (s/n): ").lower()
 
-        while respuesta != 's' or respuesta != 'n':
+        while respuesta != 's' and respuesta != 'n':
             print("ERROR: Debes ingresar 's' o 'n' \n")
             respuesta = input("¿Desea buscar otro contacto por el teléfono? (s/n): ").lower()
 
