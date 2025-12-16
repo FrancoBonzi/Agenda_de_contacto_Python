@@ -49,13 +49,17 @@ def AltaDeContacto():
             print("Error: Debe ser un número de teléfono mayor de 10 números...\n")
             telefono = input("Ingrese su teléfono: ")
 
-        telefono = int(telefono)
 
         email = input("Ingrese su email: ")
 
         while not emailValido(email):
             print("Error: Email inválido. Ejemplo válido: usuario@email.com\n")
             email = input("Ingrese su email: ")  
+
+        if ContactoExiste(telefono, email):
+            print("\nERROR: Ya existe un contacto con ese teléfono o email.")
+            input("ENTER para continuar...")
+            return    
 
         limpiarPantalla()
 
@@ -132,25 +136,41 @@ def EliminarContacto():
     limpiarPantalla()
 
     telefonoEliminar = input("Ingrese el teléfono del contacto a eliminar: ")
-    contactosActualizados = []
+    contactos = []
     eliminado = False
+
+    if not os.path.exists("AgendaDeContacto.txt"):
+        print("No hay contactos cargados.")
+        input("ENTER para continuar...")
+        return
 
     with open("AgendaDeContacto.txt", "r", encoding="utf-8") as archivo:
         for linea in archivo:
-            nombre, apellido, telefono, email = linea.strip().split("|")
+            partes = linea.strip().split("|")
 
-            if telefono != telefonoEliminar:
-                contactosActualizados.append(linea)
+            if partes[2] == telefonoEliminar:
+                print("\nContacto encontrado:")
+                print(f"Nombre: {partes[0]}")
+                print(f"Apellido: {partes[1]}")
+                print(f"Teléfono: {partes[2]}")
+                print(f"Email: {partes[3]}")
+
+                confirmar = input("\n¿Seguro que desea eliminarlo? (s/n): ").lower()
+
+                if confirmar == 's':
+                    eliminado = True
+                else:
+                    contactos.append(linea)
             else:
-                eliminado = True
+                contactos.append(linea)
 
     if eliminado:
         with open("AgendaDeContacto.txt", "w", encoding="utf-8") as archivo:
-            archivo.writelines(contactosActualizados)
+            archivo.writelines(contactos)
 
-        print("Contacto eliminado correctamente.")
+        print("\nContacto eliminado correctamente.")
     else:
-        print("No se encontró el contacto.")
+        print("\nNo se eliminó ningún contacto.")
 
     input("ENTER para continuar...")
 
