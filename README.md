@@ -24,6 +24,3 @@ La aplicación permite:
 
 🚪 **Salir del sistema**
 
-
-## 🗂 Estructura de archivos
-
